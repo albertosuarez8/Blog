@@ -1,0 +1,19 @@
+﻿@page
+@model TechBlog.Pages.SignupModel
+@{
+    <p class="fs-1">Sign up</p>
+
+    <form class="form signup-form">
+        <div class="form-group mb-3">
+            <label for="username-signup" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username-signup" placeholder="albertosuarez">
+        </div>
+        <div class="form-group mb-3">
+            <label for="password-signup" class="form-label">Password</label><span class="text-body-secondary fst-italic fs-6"> Length must be over 10 characters</span>
+            <input type="password" class="form-control" id="password-signup" placeholder="Type your password">
+        </div>
+        <div class="form-group mb-3">
+            <button class="btn btn-primary btn-lg d-flex w-100 justify-content-center" type="submit">Sign up</button>
+        </div>
+    </form>
+}
