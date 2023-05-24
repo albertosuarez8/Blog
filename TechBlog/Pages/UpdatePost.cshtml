@@ -1,4 +1,49 @@
-﻿@page
+﻿@page "/UpdatePost/{id:int}"
+@using TechBlog.Models
 @model TechBlog.Pages.UpdatePostModel
 @{
+    <p class="fs-1">Edit post</p>
+
+    <form class="form post-form">
+        <div class="form-group update-post mt-3">
+            <span class="form-label">Title</span>
+            <textarea class="form-control" id="title" aria-label="With textarea">@Model.UserPost.Title</textarea>
+        </div>
+        <div class="form-group mt-3">
+            <span class="form-label">Description</span>
+            <textarea class="form-control" id="description" aria-label="With textarea">@Model.UserPost.Description</textarea>
+        </div>
+        <div class="form-group mt-3">
+            <span class="form-label">Username</span>
+            <textarea class="form-control" id="username" aria-label="With textarea">@Model.UserPost.Username</textarea>
+        </div>
+        <div class="form-group d-flex justify-content-center mt-3">
+            <button id="submit" class="btn btn-primary w-100" type="submit">Update</button>
+        </div>
+        <div class="form-group d-flex justify-content-center mt-3">
+            <button id="delete" class="btn btn-danger w-100" asp-page-handler="DeletePost" type="button">Delete</button>
+        </div>
+
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#delete').click(function () {
+                // Make an AJAX request to invoke the DeletePost method on the server
+                $.ajax({
+                    url: 'https://localhost:7262/api/posts/@Model.UserPost.Id',
+                    type: 'DELETE',
+                    success: function (response) {
+                        // Handle the success response
+                        window.location.href = '/Dashboard';
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle the error response
+                    }
+                });
+            });
+        });
+    
+    </script>
 }

@@ -1,10 +1,18 @@
 ﻿@page
+@using TechBlog.Models
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Blogs will be posted here!</p>
+@foreach (Post post in Model.Posts) {
+<div class="card m-4">
+    <div class="card-header d-flex justify-content-between">
+        <div>@post.Title</div>
+        <div>Posted by @post.Username on @post.Date</div>
+    </div>
+    <div class="card-body">
+        <p class="card-text">@post.Description</p>
+    </div>
 </div>
+}

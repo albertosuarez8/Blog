@@ -1,7 +1,16 @@
 ﻿@page
+@using TechBlog.Models
 @model TechBlog.Pages.DashboardModel
 @{
     <p class="fs-1">Your Dashboard</p>
+    @foreach (Post post in Model.Posts) {
+<a href="/UpdatePost/@post.Id" role="button" class="btn btn-secondary btn-lg d-block mt-3">
+  <div class="card-header d-flex justify-content-between">
+    <div>@post.Title</div>
+    <div>@post.Username</div>
+  </div>
+</a>
+}
     <div class="d-flex justify-content-center mt-5">
         <a class="btn btn-primary" role="button" href="/CreatePost">New Post</a>
     </div>
