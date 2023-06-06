@@ -18,7 +18,7 @@
             <textarea class="form-control" id="username" aria-label="With textarea">@Model.UserPost.Username</textarea>
         </div>
         <div class="form-group d-flex justify-content-center mt-3">
-            <button id="submit" class="btn btn-primary w-100" type="submit">Update</button>
+            <button id="update" class="btn btn-primary w-100" asp-page-handler="UpdatePost" type="button">Update</button>
         </div>
         <div class="form-group d-flex justify-content-center mt-3">
             <button id="delete" class="btn btn-danger w-100" asp-page-handler="DeletePost" type="button">Delete</button>
@@ -28,6 +28,36 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        $(document).ready(function () {
+            $('#update').click(function () {
+                let title = $("#title").val();
+                let description = $("#description").val();
+                let username = $("#username").val();
+
+                let data = {
+                    id: @Model.UserPost.Id,
+                    title: title,
+                    description: description,
+                    username: username
+                };
+
+                $.ajax({
+                    url: "https://localhost:7262/api/posts/update",
+                    method: "PUT",
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    success: function (response) {
+                        console.log(response);
+                        window.location.href = "https://localhost:7262/dashboard";
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+
+
         $(document).ready(function () {
             $('#delete').click(function () {
                 // Make an AJAX request to invoke the DeletePost method on the server

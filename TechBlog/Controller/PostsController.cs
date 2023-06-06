@@ -75,5 +75,19 @@ namespace TechBlog.Controller
                 return StatusCode(500, ex.Message);
             }
         }
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdatePost(Post newPost)
+        {
+            try
+            {
+                var post = await _postRepository.UpdatePostById(newPost);
+                return Ok(post);
+            }
+            catch (Exception ex)
+            {
+                //log error
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

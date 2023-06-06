@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Hosting;
 using TechBlog.Context;
 using TechBlog.Contracts;
 using TechBlog.Models;
@@ -44,12 +45,13 @@ namespace TechBlog.Repository
             }
         }
 
-        public async Task<Post> UpdatePostById(int id)
+        public async Task<Post> UpdatePostById(Post post)
         {
-            var query = $"SELECT u.Username, p.Id, p.Title, p.[Description], p.Date FROM Post p JOIN UserPost up ON p.Id = up.PostId JOIN [User] u ON u.Id = up.UserId WHERE p.Id = {id}";
+            string formattedDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            var query = $"UPDATE TechBlog.dbo.Post SET Title = '{post.Title}', [Description] = '{post.Description}', [Date] = '{formattedDate}' WHERE Id = {post.Id}";
             using (var connection = _dapperContext.CreateConnection())
             {
-                var post = await connection.QueryFirstAsync<Post>(query);
+                var updatePost = await connection.ExecuteAsync(query);
                 return post;
             }
         }
