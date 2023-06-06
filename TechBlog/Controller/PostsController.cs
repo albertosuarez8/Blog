@@ -61,7 +61,7 @@ namespace TechBlog.Controller
                 return StatusCode(500, ex.Message);
             }
         }
-        [HttpPost("help/")]
+        [HttpPost("create")]
         public async Task<IActionResult> CreatePost(Post newPost)
         {
             try

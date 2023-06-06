@@ -56,7 +56,8 @@ namespace TechBlog.Repository
 
         public async Task<int> CreatePost(Post post)
         {
-            var query = $"INSERT INTO TechBlog.dbo.Post (Title, [Description], [Date]) VALUES ({post.Title}, {post.Description}, {new DateTime()}; INSERT INTO TechBlog.dbo.[User] (Username, [Password]) VALUES ({post.Username}, 'password2')); INSERT INTO TechBlog.dbo.UserPost (UserId, PostId) VALUES (IDENT_CURRENT('[User]'), IDENT_CURRENT('Post'))";
+            string formattedDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            var query = $"INSERT INTO TechBlog.dbo.Post (Title, [Description], [Date]) VALUES ('{post.Title}', '{post.Description}', '{formattedDate}'); INSERT INTO TechBlog.dbo.[User] (Username, [Password]) VALUES ('{post.Username}', 'password2'); INSERT INTO TechBlog.dbo.UserPost (UserId, PostId) VALUES (IDENT_CURRENT('[User]'), IDENT_CURRENT('Post'))";
             using (var connection = _dapperContext.CreateConnection())
             {
                 var newPost = await connection.ExecuteAsync(query);
